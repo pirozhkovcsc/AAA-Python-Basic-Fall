@@ -6,6 +6,9 @@ from decimal import Decimal
 def read_file(file_path: str) -> list:
     """
     Читает данные из csv-файла по заданному пути.
+
+    :param file_path: Путь к файлу
+    :return: Список с данными
     """
     with open(file_path) as f:
         reader = csv.reader(f, delimiter=";")
@@ -17,7 +20,10 @@ def read_file(file_path: str) -> list:
 def hierarchy(data: list) -> None:
     """
     Выводит в понятном виде иерархию команд,
-    т.е. департамент и все команды, которые входят в него
+    т.е. департамент и все команды, которые входят в него.
+
+    :param data: Данные
+    :return: None
     """
     # создадим словарь, куда положим Департамент и все команды
     command_hierarchy: Dict[str, set] = {}
@@ -39,6 +45,12 @@ def hierarchy(data: list) -> None:
 
 
 def summary_report(data: list) -> list:
+    """
+    Создает отчет в виде свободной таблицы.
+
+    :param data: Данные
+    :return: Отчет в виде списка
+    """
     depart_stats: Dict[str, List[Union[int, Decimal]]] = {}
     # найдем для каждого департамента численность, мин, макс, общую выручку
     for row in data:
@@ -76,6 +88,9 @@ def summary_report(data: list) -> list:
 def print_report(report: list) -> None:
     """
     Печатает сводный отчет на экран.
+
+    :param report: Отчет, который нужно напечатать
+    :return: None
     """
     max_length = max(len(str(elem)) for row in report for elem in row)
     for row in report:
@@ -86,6 +101,10 @@ def print_report(report: list) -> None:
 def save_report(report: list, file_name="my_file") -> None:
     """
     Сохраняет отчет в виде csv-файла.
+
+    :param report: Отчет, который нужно сохранить
+    :param file_name: Имя для файла
+    :return: None
     """
     with open(f"{file_name}.csv", "w") as f:
         writer = csv.writer(f)
@@ -93,12 +112,14 @@ def save_report(report: list, file_name="my_file") -> None:
             writer.writerow(row)
 
 
-def menu(counter=0, stop=10):
+def menu(counter=10):
     """
     Пользователь выбирает пункт меню,
     вводя соответствующее число.
+
+    :param counter: Количество попыток
     """
-    assert counter < stop, "У вас больше нет попыток!"
+    assert counter != 0, "У вас больше нет попыток!"
     num = input(
         """
         Выберите пункт меню. Для этого введите:
@@ -112,22 +133,22 @@ def menu(counter=0, stop=10):
         print(
             f"""
               Вы ввели не число!
-              Аккуратней, осталось {stop - counter - 1} попыток!
+              Аккуратней, осталось {counter - 1} попыток!
               \n
              """
         )
-        counter += 1
-        menu(counter, stop)
+        counter -= 1
+        menu(counter)
     elif num not in set("123"):
         print(
             f"""
               Вы ввели число не из данного диапазона!
-              Аккуратней, осталось {stop - counter - 1} попыток!
+              Аккуратней, осталось {counter - 1} попыток!
               \n
              """
         )
-        counter += 1
-        menu(counter, stop)
+        counter -= 1
+        menu(counter)
     else:
         data = read_file(pth)
         if num == "1":
@@ -142,4 +163,4 @@ def menu(counter=0, stop=10):
 
 if __name__ == "__main__":
     pth = "./Corp_Summary.csv"
-    menu(counter=0, stop=10)
+    menu()
