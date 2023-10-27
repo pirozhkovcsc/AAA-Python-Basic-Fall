@@ -17,7 +17,11 @@ class CountVectorizer:
 
     def fit_transform(self, raw_documents: Iterable[str]) -> List[List[int]]:
         """Создает словарь и возвращает матрицу документ-терм."""
+        if isinstance(raw_documents, str):
+            raise ValueError
+
         # Поддерживаем счетчик, чтобы построить словарь
+        self.vocabulary.clear()
         counter = 0
         for row in raw_documents:
             for word in self._tokenize(row):
@@ -39,10 +43,10 @@ class CountVectorizer:
 
 
 if __name__ == "__main__":
-    corpus = [
+    corpus = (
         "Crock Pot Pasta Never boil pasta again",
         "Pasta Pomodoro Fresh ingredients Parmesan to taste",
-    ]
+    )
     vectorizer = CountVectorizer()
     count_matrix = vectorizer.fit_transform(corpus)
     print(vectorizer.get_feature_names())
