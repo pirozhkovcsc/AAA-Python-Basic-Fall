@@ -48,9 +48,10 @@ class TfidTransformer:
         idf_matrix = self._idf_transform(matrix)
 
         result = [
-            list(map(
-                lambda tfidf: round(tfidf[0] * tfidf[1], 3),
-                zip(row, idf_matrix)
+            list(
+                map(
+                    lambda tfidf: round(tfidf[0] * tfidf[1], 3),
+                    zip(row, idf_matrix)
                 )
             )
             for row in tf_matrix
@@ -68,9 +69,7 @@ class TfidfVectorizer(CountVectorizer):
         # здесь используем композицию
         self.transformer = TfidTransformer()
 
-    def fit_transform(
-        self, raw_documents: Iterable[str]
-    ) -> List[List[float]]:
+    def fit_transform(self, raw_documents: Iterable[str]) -> List[List[float]]:
         """
         Из документов получаем tf * idf матрицу.
         """
