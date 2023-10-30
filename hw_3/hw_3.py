@@ -1,4 +1,4 @@
-from typing import Iterable, List, Dict
+from typing import Iterable, List, Dict, Union
 
 
 class CountVectorizer:
@@ -15,7 +15,9 @@ class CountVectorizer:
         # Разделяем текст по пробелам и убираем знаки препинания
         return [word.strip('.,!?()[]{}":;') for word in text.split()]
 
-    def fit_transform(self, raw_documents: Iterable[str]) -> List[List[int]]:
+    def fit_transform(
+        self, raw_documents: Iterable[str]
+    ) -> List[List[Union[int, float]]]:
         """Создает словарь и возвращает матрицу документ-терм."""
         if isinstance(raw_documents, str):
             raise ValueError
@@ -29,7 +31,9 @@ class CountVectorizer:
                     self.vocabulary[word] = counter
                     counter += 1
 
-        matrix = [[0] * counter for _ in raw_documents]
+        matrix: List[List[Union[int, float]]] = \
+            [[0] * counter for _ in raw_documents]
+
         for row_ind, row in enumerate(raw_documents):
             for word in self._tokenize(row):
                 if word in self.vocabulary:
