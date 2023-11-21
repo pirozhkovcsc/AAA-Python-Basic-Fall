@@ -1,0 +1,116 @@
+﻿Описание
+
+
+Задача 1.
+
+
+Запустить:
+
+
+python -m doctest -o NORMALIZE_WHITESPACE -v morse.py 
+
+
+Результат:
+
+
+Trying:
+    encode('SOS')
+Expecting:
+    '... --- ...'
+ok
+Trying:
+    encode(123)
+Expecting:
+    Traceback (most recent call last):
+    ...
+    TypeError: 'int' object is not iterable
+ok
+2 items had no tests:
+    morse
+    morse.decode
+1 items passed all tests:
+   2 tests in morse.encode
+2 tests in 3 items.
+2 passed and 0 failed.
+Test passed.
+
+
+Задача 2.
+
+
+Запустить:
+
+
+pytest -v test_morse.py
+
+
+Результат:
+
+============================================================= short test summary info =============================================================
+FAILED test_morse.py::test_decoder[-..-. -..-. -..-. --..-- --..-- --..-- --..---///,,,,] - AssertionError: assert '///, , , , ' == '///,,,,'
+FAILED test_morse.py::test_decoder[.?/-(), -.-.-.- ..--.. -..-. -....- -.--. -.--.- --..--] - KeyError: '.?/-(),'
+=========================================================== 2 failed, 7 passed in 0.03s ===========================================================
+
+
+Задача 3.
+
+
+Запустить:
+
+
+python -m unittest -v test_ohe_unittest.py
+
+
+Результат:
+
+
+test_absent_category (test_ohe_unittest.TestFitTransform) ... ok
+test_basic_one_word (test_ohe_unittest.TestFitTransform) ... ok
+test_basic_words (test_ohe_unittest.TestFitTransform) ... ok
+test_incorrect_binary_representation (test_ohe_unittest.TestFitTransform) ... ok
+test_no_args_exception (test_ohe_unittest.TestFitTransform) ... ok
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+OK
+
+
+Задача 4.
+
+
+Запустить:
+
+
+pytest -v test_ohe_pytest.py
+
+
+Результат:
+
+
+test_ohe_pytest.py::test_basic_words PASSED                                                                                                 [ 20%]
+test_ohe_pytest.py::test_basic_one_word PASSED                                                                                              [ 40%]
+test_ohe_pytest.py::test_no_args_exception PASSED                                                                                           [ 60%]
+test_ohe_pytest.py::test_incorrect_binary_representation PASSED                                                                             [ 80%]
+test_ohe_pytest.py::test_absent_category PASSED                                                                                             [100%]
+================================================================ 5 passed in 0.01s ================================================================
+
+
+Задача 5.
+
+
+Запустить:
+        
+coverage run test_what_is_year_now.py
+coverage report
+
+
+Результат:
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.003s
+OK
+Name                       Stmts   Miss  Cover
+----------------------------------------------
+test_what_is_year_now.py      25      0   100%
+what_is_year_now.py           19      0   100%
+----------------------------------------------
+TOTAL                         44      0   100%
