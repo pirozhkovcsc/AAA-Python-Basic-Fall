@@ -37,7 +37,7 @@ class TestWhatIsYearNow(unittest.TestCase):
 
     @patch("what_is_year_now.urllib.request.urlopen")
     def test_invalid_date_format(self, mock_urlopen):
-        # для неверного формата
+        # Для неверного формата
         mock_response = {"currentDateTime": "2020/05/06"}
         mock_urlopen.return_value.__enter__.return_value.read.return_value = \
             json.dumps(mock_response)
