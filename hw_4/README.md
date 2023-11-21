@@ -42,3 +42,4 @@ pytest -v test_ohe_pytest.py
 coverage run test_what_is_year_now.py
 coverage report
 ```
+Также в директории проекта можно найти скриншот с результатами о покрытии.
