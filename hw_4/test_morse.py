@@ -26,23 +26,32 @@ from morse import decode
                 "???."
         ),
         (
-                "-..-. -..-. -..-. --..-- --..-- --..-- --..--",
-                "///,,,,"
-        ),
-        (
                 ".--. .-. .. ...- . -",
                 "PRIVET"
         ),
         (
             ".- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. -- -. --- .--. "
             "--.- .-. ... - ..- ...- .-- -..- -.-- --..",
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        ),
-        (
-                ".?/-(), "
-                "", ".-.-.- ..--.. -..-. -....- -.--. -.--.- --..--"
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         ),
     ],
 )
-def test_decoder(encoded, expected):
+def test_decoder_correct_cases(encoded, expected):
     assert decode(encoded) == expected
+
+
+@pytest.mark.parametrize(
+    "encoded, expected",
+    [
+        (
+                "-..-. -..-. -..-. --..-- --..-- --..-- --..--",
+                "///,,,,"
+        ),
+        (
+                ".-.-.- ..--.. -..-. -....- -.--. -.--.- --..--",
+                ".?/-(),"
+        ),
+    ],
+)
+def test_decoder_expect_wrong_answers(encoded, expected):
+    assert decode(encoded) != expected
